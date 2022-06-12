@@ -1,0 +1,68 @@
+*{margin: 0px;padding: 0px;}
+a{
+    text-decoration: none;
+    float: left;
+    margin-top: 2px;
+    font-size: 20px;
+}
+.header{
+    height: 70px;
+    font-size: 40px;
+    text-align: center;
+    font-family: 华文楷体;
+    color: blue;
+}
+.search{
+    margin: 0 auto;
+    width: 1000px;
+    height: 50px;
+}
+.search input{
+    width: 850px;
+    height: 50px;
+    border-radius: 30px;
+    padding-left: 20px;
+    background: none;
+}
+.search button{
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #3b75fb;
+}
+.main{
+    width:1000px;
+    height: 220px;
+    margin: 0 auto;
+}
+.title{
+    text-align: center;
+    font-family: 幼圆;
+    width: 1000px;
+    height: 40px;
+    margin-top: 30px;
+}
+.kuanl{
+    width: 476px;
+    height: 50px;
+    border: darkslateblue 2px solid;
+    border-radius: 30px;
+    text-align: center;
+    padding-top: 20px;
+    margin: 10px  10px;
+    float: left;
+}
+.kuanr{
+    width: 476px;
+    height: 50px;
+    border: darkslateblue 2px solid;
+    border-radius: 30px;
+    text-align: center;
+    padding-top: 20px;
+    margin: 10px  10px;
+    float: right;
+}
+img{width:30px;height:30px;float: left;margin-left: 20px;margin-right: 10px;}
+.kuanl:hover{box-shadow: 0px 0px 6px 0px #3b75fb;}/*盒子阴影*/
+.kuanr:hover{box-shadow: 0px 0px 6px 0px #3b75fb;}
+

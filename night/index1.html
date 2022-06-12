@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>21计应1班曹传宽</title>
+    <link href="index1.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="header"><a href="../index.html" title="切换简洁版" style="font-size: 40px;text-align: center;font-family: 华文楷体;color: blue;text-align: center;float: none;">逸风导航</a></div>
+<div class="search">
+    <input type="text" placeholder="请输入内容">
+    <button type="submit">百度一下</button>
+</div>
+<div class="main">
+    <div class="title">影视</div>
+    <div class="kuanl"><img src="../images/ico.png"/><a class="wenzi" href="../yinshi/sy.html" title="yifeng" target="_blank">逸风小站</a></div>
+    <div class="kuanr"><img src="../images/txsp.png"/><a href="../yinshi/ing.html" title="yifeng" target="_blank">腾讯视频</a></div>
+    <div class="kuanl"><img src="../images/aqy.png"/><a href="../yinshi/ing.html" title="yifeng" target="_blank">爱奇艺</a></div>
+    <div class="kuanr"><img src="../images/yk.png"/><a href="../yinshi/ing.html" title="yifeng" target="_blank">优酷</a></div>
+</div>
+<div class="main">
+    <div class="title">编程开发</div>
+    <div class="kuanl"><img src="../images/w3c.png"/><a href="../w3school/html-main.html" title="yifeng" target="_blank">W3school</a></div>
+    <div class="kuanr"><img src="../images/cnjc.png"/><a href="../w3school/ing.html" title="yifeng" target="_blank">菜鸟教程</a></div>
+    <div class="kuanl"><img src="../images/sjjg.png"/><a href="../w3school/ing.html" title="yifeng" target="_blank">数据结构与算法教程</a></div>
+    <div class="kuanr"><img src="../images/java.png"/><a href="../w3school/ing.html" title="yifeng" target="_blank">javascript视频教程</a></div>
+</div>
+<div class="main">
+    <div class="title">音乐</div>
+    <div class="kuanl"><img src="../images/ico.png"/><a href="../yinyue/yifengmusic.html" title="yifeng" target="_blank">逸风音乐</a></div>
+    <div class="kuanr"><img src="../images/qqmusic.png"/><a href="../yinshi/ing.html" title="yifeng" target="_blank">QQ音乐</a></div>
+    <div class="kuanl"><img src="../images/wyy.png"/><a href="../yinshi/ing.html" title="yifeng" target="_blank">网易云音乐</a></div>
+    <div class="kuanr"><img src="../images/kugou.png"/><a href="../yinshi/ing.html" title="yifeng" target="_blank">酷狗音乐</a></div>
+</div>
+<script>
+    //==========================================
+    // File:    star.js
+    // Title:   几何星空连线背景
+    // Author   李少杰
+    //==========================================
+
+    // 可调参数
+    var BACKGROUND_COLOR = "rgba(0,43,54,1)";   // 背景颜色
+    var POINT_NUM = 100;                        // 星星数目
+    var POINT_COLOR = "rgba(255,255,255,0.7)";  // 点的颜色
+    var LINE_LENGTH = 10000;                    // 点之间连线长度(的平方)
+
+    // 创建背景画布
+    var cvs = document.createElement("canvas");
+    cvs.width = window.innerWidth;
+    cvs.height = window.innerHeight;
+    cvs.style.cssText = "\
+    position:fixed;\
+    top:0px;\
+    left:0px;\
+    z-index:-1;\
+    opacity:1.0;\
+    ";
+    document.body.appendChild(cvs);
+
+    var ctx = cvs.getContext("2d");
+
+    var startTime = new Date().getTime();
+
+    //随机数函数
+    function randomInt(min, max) {
+        return Math.floor((max - min + 1) * Math.random() + min);
+    }
+
+    function randomFloat(min, max) {
+        return (max - min) * Math.random() + min;
+    }
+
+    //构造点类
+    function Point() {
+        this.x = randomFloat(0, cvs.width);
+        this.y = randomFloat(0, cvs.height);
+
+        var speed = randomFloat(0.3, 1.4);
+        var angle = randomFloat(0, 2 * Math.PI);
+
+        this.dx = Math.sin(angle) * speed;
+        this.dy = Math.cos(angle) * speed;
+
+        this.r = 1.2;
+
+        this.color = POINT_COLOR;
+    }
+
+    Point.prototype.move = function () {
+        this.x += this.dx;
+        if (this.x < 0) {
+            this.x = 0;
+            this.dx = -this.dx;
+        } else if (this.x > cvs.width) {
+            this.x = cvs.width;
+            this.dx = -this.dx;
+        }
+        this.y += this.dy;
+        if (this.y < 0) {
+            this.y = 0;
+            this.dy = -this.dy;
+        } else if (this.y > cvs.height) {
+            this.y = cvs.height;
+            this.dy = -this.dy;
+        }
+    }
+
+    Point.prototype.draw = function () {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    var points = [];
+
+    function initPoints(num) {
+        for (var i = 0; i < num; ++i) {
+            points.push(new Point());
+        }
+    }
+
+    var p0 = new Point(); //鼠标
+    p0.dx = p0.dy = 0;
+    var degree = 2.5;
+    document.onmousemove = function (ev) {
+        p0.x = ev.clientX;
+        p0.y = ev.clientY;
+    }
+    document.onmousedown = function (ev) {
+        degree = 5.0;
+        p0.x = ev.clientX;
+        p0.y = ev.clientY;
+    }
+    document.onmouseup = function (ev) {
+        degree = 2.5;
+        p0.x = ev.clientX;
+        p0.y = ev.clientY;
+    }
+    window.onmouseout = function () {
+        p0.x = null;
+        p0.y = null;
+    }
+
+    function drawLine(p1, p2, deg) {
+        var dx = p1.x - p2.x;
+        var dy = p1.y - p2.y;
+        var dis2 = dx * dx + dy * dy;
+        if (dis2 < 2 * LINE_LENGTH) {
+            if (dis2 > LINE_LENGTH) {
+                if (p1 === p0) {
+                    p2.x += dx * 0.03;
+                    p2.y += dy * 0.03;
+                } else return;
+            }
+            var t = (1.05 - dis2 / LINE_LENGTH) * 0.2 * deg;
+            ctx.strokeStyle = "rgba(255,255,255," + t + ")";
+            ctx.beginPath();
+            ctx.lineWidth = 1.5;
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.closePath();
+            ctx.stroke();
+        }
+        return;
+    }
+
+    //绘制每一帧
+    function drawFrame() {
+        cvs.width = window.innerWidth;
+        cvs.height = window.innerHeight;
+        ctx.fillStyle = BACKGROUND_COLOR;
+        ctx.fillRect(0, 0, cvs.width, cvs.height);
+
+        var arr = (p0.x == null ? points : [p0].concat(points));
+        for (var i = 0; i < arr.length; ++i) {
+            for (var j = i + 1; j < arr.length; ++j) {
+                drawLine(arr[i], arr[j], 1.0);
+            }
+            arr[i].draw();
+            arr[i].move();
+        }
+
+        window.requestAnimationFrame(drawFrame);
+    }
+
+    initPoints(POINT_NUM);
+    drawFrame();
+</script>
+</body>
+</html>
